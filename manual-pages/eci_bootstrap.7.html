@@ -1,0 +1,60 @@
+<!DOCTYPE html>
+<html>
+<head>
+  <meta charset="utf-8"/>
+  <link rel="stylesheet" href="style.css" type="text/css" media="all"/>
+  <title>ECI_BOOTSTRAP(7)</title>
+</head>
+<body>
+<table class="head">
+  <tr>
+    <td class="head-ltitle">ECI_BOOTSTRAP(7)</td>
+    <td class="head-vol">Miscellaneous Information Manual</td>
+    <td class="head-rtitle">ECI_BOOTSTRAP(7)</td>
+  </tr>
+</table>
+<div class="manual-text">
+<p class="Pp"></p>
+<section class="Sh">
+<h1 class="Sh" id="NAME"><a class="permalink" href="#NAME">NAME</a></h1>
+<code class="Nm">eci_bootstrap</code> &#x2014;
+<div class="Nd">early initialisation and setup of eComInit
+<p class="Pp"></p>
+</div>
+</section>
+<h1 class="Sh" id="DESCRIPTION"><a class="permalink" href="#DESCRIPTION">DESCRIPTION</a></h1>
+The <a class="Xr" href="ecominit.7.html">ecominit(7)</a> system is modular and
+  multi-process and hence initial startup involves a specific set of tasks to be
+  carried out, during which the system operates with limited functionality. This
+  document describes that bootstrap process.
+<p class="Pp"></p>
+<section class="Ss">
+<h2 class="Ss" id="Environment_Setup"><a class="permalink" href="#Environment_Setup">Environment
+  Setup</a></h2>
+Either <a class="Xr" href="ecinit.8.html">ecinit(8)</a> or
+  <a class="Xr" href="ecsessioninit.8.html">ecsessioninit(8)</a> runs first.
+  These handle the specific tasks needed to get a system or session to the point
+  where <a class="Xr" href="eci.startd.8.html">eci.startd(8)</a>, the master
+  restarter, can run. They then launch the master restarter.
+<p class="Pp"></p>
+</section>
+<section class="Ss">
+<h2 class="Ss" id="Early_Manifest_Import"><a class="permalink" href="#Early_Manifest_Import">Early
+  Manifest Import</a></h2>
+<a class="Xr" href="eci.startd.8.html">eci.startd(8)</a> sets up two
+  <i class="Em">pseudo-instances</i>: these are hardcoded instance descriptions
+  built into <a class="Xr" href="eci.startd.8.html">eci.startd(8)</a> which
+  invoke <a class="Xr" href="eci.configd.8.html">eci.configd(8)</a> and then,
+  the <a class="Sx" href="#Manifest_Import">Manifest Import</a> service.
+<p class="Pp">The <a class="Sx" href="#Manifest_Import">Manifest Import</a>
+    service scans a set of standard directories for service manifests.</p>
+</section>
+</div>
+<table class="foot">
+  <tr>
+    <td class="foot-date">$mandocdate$</td>
+    <td class="foot-os">eComInit</td>
+  </tr>
+</table>
+</body>
+</html>
