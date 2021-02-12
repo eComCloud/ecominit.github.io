@@ -31,11 +31,10 @@ The <a class="Xr" href="ecominit.7.html">ecominit(7)</a> system is modular and
 <section class="Ss">
 <h2 class="Ss" id="Environment_Setup"><a class="permalink" href="#Environment_Setup">Environment
   Setup</a></h2>
-Either <a class="Xr" href="ecinit.8.html">ecinit(8)</a> or
-  <a class="Xr" href="ecsessioninit.8.html">ecsessioninit(8)</a> runs first.
-  These handle the specific tasks needed to get a system or session to the point
-  where <a class="Xr" href="eci.startd.8.html">eci.startd(8)</a>, the master
-  restarter, can run. They then launch the master restarter.
+<a class="Xr" href="ecinit.8.html">ecinit(8)</a> runs first. This handles the
+  specific tasks needed to get a system or session to the point where
+  <a class="Xr" href="eci.startd.8.html">eci.startd(8)</a>, the master
+  restarter, can run. It then launches (and supervises) the master restarter.
 <p class="Pp"></p>
 </section>
 <section class="Ss">
@@ -47,7 +46,11 @@ Either <a class="Xr" href="ecinit.8.html">ecinit(8)</a> or
   invoke <a class="Xr" href="eci.configd.8.html">eci.configd(8)</a> and then,
   the <a class="Sx" href="#Manifest_Import">Manifest Import</a> service.
 <p class="Pp">The <a class="Sx" href="#Manifest_Import">Manifest Import</a>
-    service scans a set of standard directories for service manifests.</p>
+    service scans a set of standard directories for service manifests. The
+    specific directories scanned varies depending on whether this is a system or
+    a session instance. See
+    <a class="Xr" href="ecominit.7.html">ecominit(7)</a>, section
+    <i class="Em">Layers</i>, for a detailed list.</p>
 </section>
 </div>
 <table class="foot">

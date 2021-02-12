@@ -1,0 +1,69 @@
+<!DOCTYPE html>
+<html>
+<head>
+  <meta charset="utf-8"/>
+  <link rel="stylesheet" href="style.css" type="text/css" media="all"/>
+  <title>ECI.INIT(7)</title>
+</head>
+<body>
+<table class="head">
+  <tr>
+    <td class="head-ltitle">ECI.INIT(7)</td>
+    <td class="head-vol">Miscellaneous Information Manual</td>
+    <td class="head-rtitle">ECI.INIT(7)</td>
+  </tr>
+</table>
+<div class="manual-text">
+<section class="Sh">
+<h1 class="Sh" id="NAME"><a class="permalink" href="#NAME">NAME</a></h1>
+<code class="Nm">eci.init</code> &#x2014;
+<div class="Nd">process control initialisation
+<p class="Pp"></p>
+</div>
+</section>
+<section class="Sh">
+<h1 class="Sh" id="SYNOPSIS"><a class="permalink" href="#SYNOPSIS">SYNOPSIS</a></h1>
+<table class="Nm">
+  <tr>
+    <td><code class="Nm">eci.init</code></td>
+    <td></td>
+  </tr>
+</table>
+<br/>
+<table class="Nm">
+  <tr>
+    <td><code class="Nm">eci.init</code></td>
+    <td>[<code class="Cm">0</code> | <code class="Cm">1</code> |
+      <code class="Cm">6</code>]
+    <p class="Pp"></p>
+    </td>
+  </tr>
+</table>
+</section>
+<h1 class="Sh" id="DESCRIPTION"><a class="permalink" href="#DESCRIPTION">DESCRIPTION</a></h1>
+<code class="Nm">eci.init</code> is the first process run on a system managed by
+  eComInit. Its exact tasks vary by platform, but it is generally reserved to
+  setting up the system just enough to launch and start
+  <a class="Xr" href="eci.startd.8.html">eci.startd(8)</a>, restarting it if it
+  should fail. To preserve backwards compatibility, it also supervises processes
+  specified in either the <span class="Pa">/etc/ttys</span> file on BSD-like
+  systems, or the <span class="Pa">/etc/inittab</span> file on System V-like
+  systems.
+<p class="Pp"></p>
+<section class="Sh">
+<h1 class="Sh" id="SEE_ALSO"><a class="permalink" href="#SEE_ALSO">SEE
+  ALSO</a></h1>
+<a class="Xr" href="inittab.5.html">inittab(5)</a>,
+  <a class="Xr" href="ttys.5.html">ttys(5)</a>,
+  <a class="Xr" href="ecominit.7.html">ecominit(7)</a>,
+  <a class="Xr" href="eci.startd.8.html">eci.startd(8)</a>
+</section>
+</div>
+<table class="foot">
+  <tr>
+    <td class="foot-date">February 12, 2021</td>
+    <td class="foot-os">eComInit</td>
+  </tr>
+</table>
+</body>
+</html>
