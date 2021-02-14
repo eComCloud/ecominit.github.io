@@ -37,9 +37,9 @@ Instances in an eComInit system each belong to a restarter, by default this is
 <h2 class="Ss" id="INSTANCE_DEFINITION"><a class="permalink" href="#INSTANCE_DEFINITION">INSTANCE
   DEFINITION</a></h2>
 <b>PROPERTIES</b>
-<p class="Pp"><b>restarter</b> <i>sri nullable</i></p>
+<p class="Pp"><b>restarter</b> <i>sri</i></p>
 <div class="Bd-indent">Name of the delegated restarter for this instance. If set
-  to <i>null</i> then the instance is not restarted, but is simply consdiered
+  to <i>none</i> then the instance is not restarted, but is simply consdiered
   online so long as all its dependencies are up. This is not regarded as an
   <i>unmanaged</i> instance, thus it is perfectly possible to invoke
   administrative requests upon it. Any properties marked <i>managed-only</i>,
@@ -62,7 +62,7 @@ Instances in an eComInit system each belong to a restarter, by default this is
 </div>
 <table class="foot">
   <tr>
-    <td class="foot-date">2021-02-12</td>
+    <td class="foot-date">2021-02-14</td>
     <td class="foot-os"></td>
   </tr>
 </table>

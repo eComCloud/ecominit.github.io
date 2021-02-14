@@ -1,0 +1,126 @@
+<!DOCTYPE html>
+<html>
+<head>
+  <meta charset="utf-8"/>
+  <link rel="stylesheet" href="style.css" type="text/css" media="all"/>
+  <title>ECIADM(8)</title>
+</head>
+<body>
+<table class="head">
+  <tr>
+    <td class="head-ltitle">ECIADM(8)</td>
+    <td class="head-vol">System Manager's Manual</td>
+    <td class="head-rtitle">ECIADM(8)</td>
+  </tr>
+</table>
+<div class="manual-text">
+<section class="Sh">
+<h1 class="Sh" id="NAME"><a class="permalink" href="#NAME">NAME</a></h1>
+<code class="Nm">eciadm</code> &#x2014;
+<div class="Nd">service management console
+<p class="Pp"></p>
+</div>
+</section>
+<section class="Sh">
+<h1 class="Sh" id="SYNOPSIS"><a class="permalink" href="#SYNOPSIS">SYNOPSIS</a></h1>
+<table class="Nm">
+  <tr>
+    <td><code class="Nm">eciadm</code></td>
+    <td>
+    <p class="Pp"></p>
+    </td>
+  </tr>
+</table>
+</section>
+<h1 class="Sh" id="DESCRIPTION"><a class="permalink" href="#DESCRIPTION">DESCRIPTION</a></h1>
+<code class="Nm">eciadm</code> is the eComInit Management Console. It is used to
+  view the state of the instances running under
+  <a class="Xr" href="ecominit.7.html">ecominit(7)</a> control, and to send
+  requests for action to these instances.
+<p class="Pp"></p>
+<section class="Sh">
+<h1 class="Sh" id="INTERACTIVE_COMMANDS"><a class="permalink" href="#INTERACTIVE_COMMANDS">INTERACTIVE
+  COMMANDS</a></h1>
+<dl class="Bl-tag">
+  <dt>enable</dt>
+  <dd>Enables the instance. This clears the <i class="Em">temporary-disable</i>
+      flag from the instance if it is set.
+    <p class="Pp"></p>
+  </dd>
+  <dt>refresh</dt>
+  <dd>Refreshes the instance with fresh data from the repository. This does the
+      following:
+    <ul class="Bl-bullet">
+      <li>recreates the dependency edges for the instance</li>
+      <li>if the instance is running, sends a refresh command to the
+        restarter</li>
+      <li>otherwise, requests the instance's restarter bring it up if
+          dependencies are met.</li>
+    </ul>
+    Note that, if the instance is running, <i class="Em">refresh</i> does
+      <b class="Sy">not</b> cause the instance to go down if a newly-added
+      dependency is not met, nor does it stop the instance and restart it under
+      the control of any restarter if the delegated restarter has been
+      respecified. For these cases, see the <i class="Em">reload</i> command.
+    <p class="Pp"></p>
+  </dd>
+  <dt>reload</dt>
+  <dd>If the instance is not <i class="Em">disabled</i> nor in
+      <i class="Em">maintenance</i> state, first sends an unload command to the
+      restarter, which stops the instance if it is running. The instance is then
+      refreshed. This command is suitable for the following cases:
+    <ul class="Bl-bullet">
+      <li>a new dependency has been added to an instance, and if unmet the
+          instance must immediately be brought offline;</li>
+      <li>an instance's delegated restarter has been respecified and the
+          instance must immediately be brought down and (if possible to start)
+          launched and supervised by the new restarter.</li>
+    </ul>
+    <p class="Pp"></p>
+  </dd>
+  <dt>target</dt>
+  <dd><i class="Em">Target</i>s the specified instance. This sends an
+      <i class="Em">enable</i> command to all transitive dependencies of the
+      given instance, while a temporary <i class="Em">disable</i> command is
+      sent to all instances outwith that subgraph.
+    <p class="Pp">Please note:</p>
+    <ul class="Bl-bullet">
+      <li>if any transitive dependency is of grouping
+          <i class="Em">optional</i>, and is disabled, then it is
+          <b class="Sy">not</b> enabled.</li>
+      <li>retargeting is <b class="Sy">not</b> a permanent state of affairs.
+          Instances not belonging to the current target may freely be enabled
+          and instances belonging to it disabled.</li>
+    </ul>
+    <p class="Pp"></p>
+  </dd>
+  <dt>disable</dt>
+  <dd>Disables the specified instance. First, all instances depending on it are
+      brought down, starting with the leaves and progressing down through the
+      graph. The instance itself is then stopped and placed in the disabled
+      state. It will not start again without administrative intervention.
+    <p class="Pp"></p>
+  </dd>
+  <dt>maintain</dt>
+  <dd>As with <i class="Em">disable</i>, but immediately stops the instance
+      (dependencies go down afterwards, if their <i class="Em">restart-on</i>
+      setting is greater or equal to <i class="Em">on-error ).</i> The service
+      enters the maintenance state and will not start again without
+      administrative intervention.</dd>
+</dl>
+<p class="Pp"></p>
+</section>
+<section class="Sh">
+<h1 class="Sh" id="SEE_ALSO"><a class="permalink" href="#SEE_ALSO">SEE
+  ALSO</a></h1>
+<a class="Xr" href="ecominit.7.html">ecominit(7)</a>
+</section>
+</div>
+<table class="foot">
+  <tr>
+    <td class="foot-date">February 14, 2021</td>
+    <td class="foot-os">eComInit</td>
+  </tr>
+</table>
+</body>
+</html>

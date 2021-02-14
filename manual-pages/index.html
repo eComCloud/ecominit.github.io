@@ -18,7 +18,7 @@
 <section class="Sh">
 <h1 class="Sh" id="NAME"><a class="permalink" href="#NAME">NAME</a></h1>
 <code class="Nm">index</code> &#x2014;
-<div class="Nd">manual of the eComInit system resource manager
+<div class="Nd">index to the eComInit Manual
 <p class="Pp"></p>
 </div>
 </section>
@@ -29,27 +29,43 @@ This is the eComInit Manual, the authoritative reference on the operation of the
 <section class="Ss">
 <h2 class="Ss" id="Miscellaneous_Information_Manual"><a class="permalink" href="#Miscellaneous_Information_Manual">Miscellaneous
   Information Manual</a></h2>
-<ul class="Bl-bullet">
-  <li><a class="Xr" href="eci_bootstrap.7.html">eci_bootstrap(7)</a></li>
-  <li><a class="Xr" href="eci_method.7.html">eci_method(7)</a></li>
-  <li><a class="Xr" href="eci_restarter.7.html">eci_restarter(7)</a></li>
-  <li><a class="Xr" href="ecominit.7.html">ecominit(7)</a></li>
-</ul>
+<dl class="Bl-tag">
+  <dt><a class="Xr" href="ecominit.7.html">ecominit(7)</a></dt>
+  <dd>Conceptual overview of the eComInit service system resource manager.</dd>
+  <dt><a class="Xr" href="eci_bootstrap.7.html">eci_bootstrap(7)</a></dt>
+  <dd>How a system or auxiliary eComInit manager is bootstrapped.</dd>
+  <dt><a class="Xr" href="eci_restarter.7.html">eci_restarter(7)</a></dt>
+  <dd>Conventions and common properties of all restarters.</dd>
+  <dt><a class="Xr" href="eci_method.7.html">eci_method(7)</a></dt>
+  <dd>Details <i class="Em">methods</i>, conventions which all restarters
+      adopting the UNIX&#x00AE; process model understand.</dd>
+</dl>
 <p class="Pp"></p>
 </section>
 <section class="Ss">
-<h2 class="Ss" id="System_Administration_Commands"><a class="permalink" href="#System_Administration_Commands">System
-  Administration Commands</a></h2>
-<ul class="Bl-bullet">
-  <li><a class="Xr" href="eci.auxinit.8.html">eci.auxinit(8)</a></li>
-  <li><a class="Xr" href="eci.init.8.html">eci.init(8)</a></li>
-  <li><a class="Xr" href="eci.startd.8.html">eci.startd(8)</a></li>
-</ul>
+<h2 class="Ss" id="System_Management_COMMANDS"><a class="permalink" href="#System_Management_COMMANDS">System
+  Management COMMANDS</a></h2>
+<dl class="Bl-tag">
+  <dt><a class="Xr" href="eciadm.8.html">eciadm(8)</a></dt>
+  <dd>Service management console.</dd>
+</dl>
+<p class="Pp"></p>
+</section>
+<section class="Ss">
+<h2 class="Ss" id="Daemons"><a class="permalink" href="#Daemons">Daemons</a></h2>
+<dl class="Bl-tag">
+  <dt><a class="Xr" href="eci.auxinit.8.html">eci.auxinit(8)</a></dt>
+  <dd>Auxiliary process control initialisation.</dd>
+  <dt><a class="Xr" href="eci.init.8.html">eci.init(8)</a></dt>
+  <dd>Process control initialisation.</dd>
+  <dt><a class="Xr" href="eci.startd.8.html">eci.startd(8)</a></dt>
+  <dd>The main restarter.</dd>
+</dl>
 </section>
 </div>
 <table class="foot">
   <tr>
-    <td class="foot-date">February 11, 2021</td>
+    <td class="foot-date">February 12, 2021</td>
     <td class="foot-os">eComInit</td>
   </tr>
 </table>
