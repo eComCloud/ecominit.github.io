@@ -1,0 +1,234 @@
+<!DOCTYPE html>
+<html>
+<head>
+  <meta charset="utf-8"/>
+  <link rel="stylesheet" href="style.css" type="text/css" media="all"/>
+  <title>SERVICE_BUNDLE(5)</title>
+</head>
+<body>
+<table class="head">
+  <tr>
+    <td class="head-ltitle">SERVICE_BUNDLE(5)</td>
+    <td class="head-vol">File Formats Manual</td>
+    <td class="head-rtitle">SERVICE_BUNDLE(5)</td>
+  </tr>
+</table>
+<div class="manual-text">
+<p class="Pp"></p>
+<section class="Sh">
+<h1 class="Sh" id="NAME"><a class="permalink" href="#NAME">NAME</a></h1>
+<code class="Nm">service_bundle</code> &#x2014;
+<div class="Nd">service manifest file format
+<p class="Pp"></p>
+</div>
+</section>
+<h1 class="Sh" id="DESCRIPTION"><a class="permalink" href="#DESCRIPTION">DESCRIPTION</a></h1>
+The service manager (see <a class="Xr" href="eComInit.7.html">eComInit(7)</a>)
+  may import service descriptions or export them (with the help of
+  <a class="Xr" href="importsys.8.html">importsys(8)</a> and
+  <a class="Xr" href="exportsys.8.html">exportsys(8)</a> respectively) to a
+  <i class="Em">UCL</i> format. UCL is a superset of <i class="Em">JSON</i>,
+  replicating its object model, and indeed if preferred one may write service
+  descriptions in straight JSON. A file containing a service description is
+  known as a <i class="Em">service manifest</i>.
+<p class="Pp">The service bundle format is defined by the JSON-Schema (v4) found
+    in <span class="Pa">/lib/sys/serviceBundleSchema.json</span>. Being a
+    <i class="Em">UCL</i> format, all the UCL bonus features such as
+    <i class="Em">includes</i> are supported. (It must be clearly understood
+    that these features are of purely lexicographic significance, and are no
+    longer reified beyond the point of parsing.)</p>
+<p class="Pp"></p>
+<section class="Sh">
+<h1 class="Sh" id="BUNDLE_STRUCTURE"><a class="permalink" href="#BUNDLE_STRUCTURE">BUNDLE
+  STRUCTURE</a></h1>
+A well-formed service bundle shall consist of a dictionary with keys:
+<dl class="Bl-tag">
+  <dt>&quot;name&quot;</dt>
+  <dd>a <a class="Sx" href="#CLASS_NAME">CLASS NAME</a>
+    <p class="Pp"></p>
+  </dd>
+  <dt>&quot;depends&quot; (optional)</dt>
+  <dd><a class="Sx" href="#DEPENDENCIES">DEPENDENCIES</a>
+    <p class="Pp"></p>
+  </dd>
+  <dt>&quot;instances&quot; (optional)</dt>
+  <dd><a class="Sx" href="#INSTANCES">INSTANCES</a>, a dictionary of instance
+      names to instance dictionaries, the instance dictionaries being
+      well-formed if they contain:
+    <p class="Pp"></p>
+    <dl class="Bl-tag">
+      <dt>&quot;depends&quot; (optional)</dt>
+      <dd><a class="Sx" href="#DEPENDENCIES">DEPENDENCIES</a></dd>
+      <dt>all other keys (optional)</dt>
+      <dd><a class="Sx" href="#PROPERTIES">PROPERTIES</a></dd>
+    </dl>
+    <p class="Pp"></p>
+  </dd>
+  <dt>all other keys (optional)</dt>
+  <dd><a class="Sx" href="#PROPERTIES">PROPERTIES</a></dd>
+</dl>
+<p class="Pp"></p>
+<section class="Ss">
+<h2 class="Ss" id="CLASS_NAME"><a class="permalink" href="#CLASS_NAME">CLASS
+  NAME</a></h2>
+A string denoting the name of a class.
+<p class="Pp"></p>
+<p class="Pp">Example (UCL style):</p>
+<div class="Bd Pp Bd-indent">
+<pre>
+name runlevel$single-user;
+</pre>
+</div>
+<p class="Pp"></p>
+<p class="Pp">Example (JSON style):</p>
+<div class="Bd Pp Bd-indent">
+<pre>
+    &quot;name&quot;: &quot;runlevel$single-user&quot;
+</pre>
+</div>
+<div class="Bd Pp Bd-indent"></div>
+<p class="Pp"></p>
+</section>
+<section class="Ss">
+<h2 class="Ss" id="DEPENDENCIES"><a class="permalink" href="#DEPENDENCIES">DEPENDENCIES</a></h2>
+A dictionary containing pairs of keys denoting <i class="Em">dependency type</i>
+  (see <a class="Xr" href="eComInit.7.html">eComInit(7)</a>, ss.
+  <b class="Sy">DEPENDENCIES</b>, for details) to arrays of
+  <i class="Em">instance names</i>.
+<p class="Pp"></p>
+<p class="Pp">Example (UCL style):</p>
+<div class="Bd Pp Bd-indent">
+<pre>
+depends requires [ runlevel$single-user, file$/etc/passwd ]
+depends after [ runlevel$single-user ]
+</pre>
+</div>
+<p class="Pp"></p>
+<p class="Pp">Example (JSON style):</p>
+<div class="Bd Pp Bd-indent">
+<pre>
+    &quot;depends&quot;: {
+        &quot;after&quot;: [
+            &quot;runlevel$root-filesystem&quot;,
+            &quot;hostname&quot;,
+            &quot;utmpx&quot;
+        ]
+    },
+</pre>
+</div>
+<p class="Pp"></p>
+</section>
+<section class="Ss">
+<h2 class="Ss" id="INSTANCES"><a class="permalink" href="#INSTANCES">INSTANCES</a></h2>
+A dictionary containing keys of instance names (see
+  <a class="Xr" href="eComInit.8.html">eComInit(8)</a>, ss.
+  <b class="Sy">NAMING</b>, for further details) to values of dictionaries
+  describing an instance. These dictionaries may contain an optional
+  <a class="Sx" href="#DEPENDS">DEPENDS</a> member and optional
+  <a class="Sx" href="#PROPERTIES">PROPERTIES</a> members. In all strings within
+  an instance, the token <i class="Em">%i</i> denotes the name of the instance.
+<p class="Pp"></p>
+<p class="Pp">Example (UCL style):</p>
+<div class="Bd Pp Bd-indent">
+<pre>
+instances {
+    /dev/console {
+        depends requires [ file$%i ];
+        execStart {
+            command &quot;/sbin/getty /dev/console linux&quot;;
+        };
+    };
+    /dev/tty1 {};
+};
+</pre>
+</div>
+<p class="Pp"></p>
+<p class="Pp">Example (JSON style):</p>
+<div class="Bd Pp Bd-indent">
+<pre>
+    &quot;instances&quot;: {
+        &quot;/dev/console&quot;: {
+            &quot;depends&quot;: {
+                &quot;requires&quot;: [
+                    &quot;file$%i&quot;
+                ]
+            },
+            &quot;execStart&quot;: {
+                &quot;command&quot;: &quot;/sbin/getty /dev/console linux&quot;
+            }
+        },
+        &quot;/dev/tty1&quot;: { }
+    }
+</pre>
+</div>
+<p class="Pp"></p>
+</section>
+<section class="Ss">
+<h2 class="Ss" id="PROPERTIES"><a class="permalink" href="#PROPERTIES">PROPERTIES</a></h2>
+All dictionary pairs in a Class or Instance not either a
+  <a class="Sx" href="#DEPENDS">DEPENDS</a>, or in the case of a Class, an
+  <a class="Sx" href="#INSTANCES">INSTANCES</a> member, shall be interpreted as
+  a <i class="Em">property</i>.
+<p class="Pp">The property is named by the key, and its value may be either a
+    string, denoting a <i class="Em">string property</i>, or it may be a
+    dictionary, denoting a <i class="Em">property page</i>. A property page's
+    member dictionary pages are interpreted as
+    <a class="Sx" href="#PROPERTIES">PROPERTIES</a> in their own right, and may
+    be nested.</p>
+<p class="Pp"></p>
+<p class="Pp">Example (UCL style):</p>
+<div class="Bd Pp Bd-indent">
+<pre>
+someStringProp someValue;
+page {
+    aStringProp someThing;
+    nestedPage {
+        aProp aValue;
+        anotherProp anotherValue;
+    };
+};
+</pre>
+</div>
+<p class="Pp"></p>
+<p class="Pp">Example (JSON style):</p>
+<div class="Bd Pp Bd-indent">
+<pre>
+    &quot;someStringProp&quot;: &quot;someValue&quot;,
+    &quot;page&quot;: {
+        &quot;aStringProp&quot;: &quot;someThing&quot;,
+        &quot;nestedPage&quot;: {
+            &quot;aProp&quot;: &quot;aValue&quot;,
+            &quot;anotherProp&quot;: &quot;anotherValue&quot;
+        }
+    }
+</pre>
+</div>
+<p class="Pp"></p>
+</section>
+</section>
+<section class="Sh">
+<h1 class="Sh" id="EXAMPLES"><a class="permalink" href="#EXAMPLES">EXAMPLES</a></h1>
+<div class="Bd Bd-indent">
+<pre>
+name getty;
+depends after [ runlevel$root-filesystem, hostname, utmpx ];
+requires [ file:%i ];
+instances {
+    /dev/console {};
+    /dev/tty1 {};
+};
+execStart {
+    command &quot;/sbin/getty %i xterm&quot;;
+};
+</pre>
+</div>
+</section>
+</div>
+<table class="foot">
+  <tr>
+    <td class="foot-date">February 12, 2021</td>
+    <td class="foot-os">eComInit</td>
+  </tr>
+</table>
+</body>
+</html>
